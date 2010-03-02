@@ -1,3 +1,4 @@
+Dir['app/*'].each {|c| require c }
 require File.join(File.dirname(__FILE__), 'lib', '140')
 
 run lambda {|e|

@@ -2,7 +2,7 @@
 ======
 A Rack-compliant Ruby framework that fits in a tweet.
 
-    F=lambda{|e|p=e['REQUEST_PATH'][1..-1];Dir['app/*'].map{|c|require c};File.exist?("app/#{p}.rb")?eval(p.camelize).call(e):NotFound.call(e)}
+    F=lambda{|e|e['REQUEST_PATH'][1..-1].split('/').map(&:camelize).inject(Kernel){|m,c| m.const_get(c) rescue NotFound }.call(e)} #140.ru
 
 ## Install
 
@@ -19,6 +19,7 @@ A Rack-compliant Ruby framework that fits in a tweet.
 In your config.ru file, just put this:
 
     require '/path/to/140.rb'
+    Dir['app/*.rb'].each {|c| require c }
     run lambda { |env|
       # This specifies the default controller
       env['REQUEST_PATH'] = '/main' if env['REQUEST_PATH'] == '/'
