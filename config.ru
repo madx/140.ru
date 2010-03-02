@@ -1,4 +1,4 @@
-require '140'
+require File.join(File.dirname(__FILE__), 'lib', '140')
 
 run lambda {|e|
   e['REQUEST_PATH'] = '/main' if e['REQUEST_PATH'] == '/'
