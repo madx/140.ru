@@ -20,7 +20,9 @@ In your config.ru file, just put this:
 
     require '/path/to/140.rb'
     run lambda { |env|
+      # This specifies the default controller
       env['REQUEST_PATH'] = '/main' if env['REQUEST_PATH'] == '/'
+
       F.call(env)
     }
 
